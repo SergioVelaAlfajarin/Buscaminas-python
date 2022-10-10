@@ -1,18 +1,32 @@
 from tkinter import *
+import settings
+import utils 
 
+def main():
+    root = Tk()
 
-root = Tk()
+    # establece parametros de root
+    root.configure(bg="black")
+    root.geometry(f"{settings.WIDTH}x{settings.HEIGHT}")
+    root.title("Buscaminas")
+    root.resizable(False, False)
 
-# establece parametros de root
-root.configure(bg="black")
-root.geometry('1280x720') #WIDTH X HEIGHT
-root.title("Buscaminas")
-root.resizable(False, False)
+    top_frame = Frame(
+        root,
+        bg="red",
+        width=utils.width_prct(100),
+        height=utils.height_prct(20)
+    ).place(x=0,y=0)
 
+    left_frame = Frame(
+        root, 
+        bg="blue", 
+        width=utils.width_prct(20), 
+        height=utils.height_prct(80)
+    ).place(x=0,y=utils.height_prct(20))
 
-top_frame = Frame(root,bg="red",width=1280,height=180)
-top_frame.place(x=0,y=0)
+    # lanza la ventana
+    root.mainloop()
 
-
-# lanza la ventana
-root.mainloop()
+if __name__ == '__main__':
+    main()
