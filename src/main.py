@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.tix import COLUMN
 import settings
 import utils 
 from cell import Cell
@@ -17,29 +18,30 @@ def main():
         bg="red",
         width=utils.width_prct(100),
         height=utils.height_prct(20)
-    ).place(x=0,y=0)
+    )
+    top_frame.place(x=0,y=0)
 
     left_frame = Frame(
         root, 
         bg="blue", 
         width=utils.width_prct(20), 
         height=utils.height_prct(80)
-    ).place(x=0,y=utils.height_prct(20))
+    )
+    left_frame.place(x=0,y=utils.height_prct(20))
 
     center_frame = Frame(
         root,
         bg="green",
         width=utils.width_prct(80),
         height=utils.height_prct(80)
-    ).place(x=utils.width_prct(20), y=utils.height_prct(20))
-    
-    btn1 = Button(
-        center_frame,
-        bg="white",
-        text="button1"
-    ).place(x=0,y=0)
-    
-    c1 = Cell()
+    )
+    center_frame.place(x=utils.width_prct(20), y=utils.height_prct(20))
+
+    for x in range(settings.GRID_SIZE):
+        for y in range(settings.GRID_SIZE):
+            c = Cell()
+            c.create_button(center_frame)
+            c.cell_btn.grid(column=y,row=x)
     
     # lanza la ventana
     root.mainloop()
