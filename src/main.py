@@ -15,7 +15,7 @@ def main():
 
     top_frame = Frame(
         root,
-        bg="red",
+        bg="black",
         width=utils.width_prct(100),
         height=utils.height_prct(20)
     )
@@ -23,7 +23,7 @@ def main():
 
     left_frame = Frame(
         root, 
-        bg="blue", 
+        bg="black", 
         width=utils.width_prct(20), 
         height=utils.height_prct(80)
     )
@@ -31,7 +31,7 @@ def main():
 
     center_frame = Frame(
         root,
-        bg="green",
+        bg="black",
         width=utils.width_prct(80),
         height=utils.height_prct(80)
     )
