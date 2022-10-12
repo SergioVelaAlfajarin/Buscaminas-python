@@ -1,12 +1,19 @@
-from tkinter import Button
+import sys
+from tkinter import Button, Label
 import random
 import settings
+import ctypes
+
 class Cell:
     all = []
+    cell_count = settings.CELL_COUNT
+    cell_count_label = None
     
     def __init__(self,x,y, is_mine=False):
         self.is_mine = is_mine
+        self.is_opened = False
         self.cell_btn = None
+        self.is_mine_candidate = False
         self.x = x
         self.y = y
 
@@ -22,6 +29,17 @@ class Cell:
         btn.bind('<Button-3>', self.right_click_action) # right click
         self.cell_btn = btn;
 
+    @staticmethod
+    def create_cell_count_label(location):
+        lbl = Label(
+            location,
+            bg="black",
+            fg="white",
+            font=("", 30),
+            text=f"Cells Left: {Cell.cell_count}",
+        )
+        Cell.cell_count_label = lbl
+
     def left_click_action(self, event):
         if self.is_mine:
             self.show_mine()
@@ -30,6 +48,10 @@ class Cell:
                 for cell_obj in self.surrounded_cells:
                     cell_obj.show_cell()
             self.show_cell()
+            if Cell.cell_count == settings.MINES_COUNT:
+                ctypes.windll.user32.MessageBoxW(0, "Has Ganado", "Game Over", 0)
+        self.cell_btn.unbind("<Button-1>")
+        self.cell_btn.unbind("<Button-3>")
 
     def get_cell_by_axis(self, x, y):
         for cell in Cell.all:
@@ -61,15 +83,30 @@ class Cell:
         return counter
 
     def show_cell(self):
+        if self.is_opened:
+            return;
         
+        Cell.cell_count -= 1
         self.cell_btn.configure(text=self.surrounded_cells_mines_length)
+        self.cell_btn.configure(bg="SystemButtonFace")
+        if Cell.cell_count_label:
+            Cell.cell_count_label.configure(
+                text=f"Cells Left: {Cell.cell_count}"
+            )
+        self.is_opened = True
 
     def show_mine(self): # bomb exploded, game lost. 
         self.cell_btn.configure(bg="red")
+        ctypes.windll.user32.MessageBoxW(0, "Has hecho click en una bomba.", "Game Over", 0)
+        sys.exit()
 
     def right_click_action(self, event):
-        print(event)
-        print("right clicked")
+        if not self.is_mine_candidate:
+            self.cell_btn.configure(bg="orange")
+            self.is_mine_candidate = True
+        else:
+            self.cell_btn.configure(bg="SystemButtonFace")
+            self.is_mine_candidate = False
 
     @staticmethod
     def randomize_mines():

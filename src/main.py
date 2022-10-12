@@ -43,9 +43,13 @@ def main():
             c.create_button(center_frame)
             c.cell_btn.grid(column=c.y,row=c.x)
     
+    Cell.create_cell_count_label(left_frame)
+    
+    Cell.cell_count_label.place(x=0,y=0)
+    
     Cell.randomize_mines()
 
-    print(Cell.all)
+    
     
     
     # lanza la ventana
