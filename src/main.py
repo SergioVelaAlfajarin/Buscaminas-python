@@ -1,3 +1,4 @@
+from ctypes import util
 from tkinter import *
 from tkinter.tix import COLUMN
 import settings
@@ -28,6 +29,16 @@ def main():
         height=utils.height_prct(80)
     )
     left_frame.place(x=0,y=utils.height_prct(20))
+
+    game_title = Label(
+        top_frame,
+        bg="black",
+        fg="white",
+        text="Buscaminas",
+        font=("",40)
+    )
+    
+    game_title.place(x=utils.width_prct(25), y=0)
 
     center_frame = Frame(
         root,
