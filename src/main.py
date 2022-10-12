@@ -37,7 +37,6 @@ def main():
         text="Buscaminas",
         font=("",40)
     )
-    
     game_title.place(x=utils.width_prct(25), y=0)
 
     center_frame = Frame(
@@ -48,6 +47,7 @@ def main():
     )
     center_frame.place(x=utils.width_prct(20), y=utils.height_prct(20))
 
+    # create game grid
     for x in range(settings.GRID_SIZE):
         for y in range(settings.GRID_SIZE):
             c = Cell(x,y)
@@ -55,13 +55,10 @@ def main():
             c.cell_btn.grid(column=c.y,row=c.x)
     
     Cell.create_cell_count_label(left_frame)
-    
     Cell.cell_count_label.place(x=0,y=0)
     
+    # convierte las celdas en minas
     Cell.randomize_mines()
-
-    
-    
     
     # lanza la ventana
     root.mainloop()
